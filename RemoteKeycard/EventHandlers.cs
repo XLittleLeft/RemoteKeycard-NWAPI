@@ -19,7 +19,7 @@ namespace RemoteKeycard
             // Loads the blacklisted doors
             SetupBlacklistedDoors();
             // Returns if the config option for affecting doors is set to false
-            if (!RemoteKeycard.Instance.Config.AffectDoors) return true;
+            if (!RemoteKeycard.Instance.Config.AffectDoors || player.Role.GetTeam() == Team.SCPs) return true;
             // Returns on any blacklisted doors it finds, this is done to prevent the method from running on doors that are not supposed to be affected
             if (DoorsUtils.GetBlacklistedDoors().Any(blacklistedDoor => door.name.StartsWith(blacklistedDoor))) return true;
             // Returns if the player has a keycard in their hands
@@ -84,7 +84,7 @@ namespace RemoteKeycard
             // Loads the blacklisted lockers
             SetupBlacklistedLockers();
             // Returns if the config option for affecting lockers is set to false
-            if (!RemoteKeycard.Instance.Config.AffectScpLockers) return true;
+            if (!RemoteKeycard.Instance.Config.AffectScpLockers || player.Role.GetTeam() == Team.SCPs) return true;
             // Returns if the player has a keycard in their hands
             if (player.ReferenceHub.inventory.CurInstance is KeycardItem) return true;
             // Returns on any blacklisted lockers it finds, this is done to prevent the method from running on lockers that are not supposed to be affected
